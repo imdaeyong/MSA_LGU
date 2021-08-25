@@ -155,6 +155,7 @@ public class HelloController {
  나. RESTful 서비스 (*****)
      ==> 사용자가 입력한 데이터(파라미터)를 url에 포함해서 요청
       http://localhost:8080/요청매핑/id/1234/pw/9876
+
       http://localhost:8080/요청매핑/ + 넘겨줄 데이터를 JSON
       
     ==> method 사용하여 의도를 내포                   스프링의 Controller
@@ -198,12 +199,12 @@ public class HelloController {
 
 10. @Response 역할
    ==> 서버에서 실행된 자바클래스를 JSON 변환하여 반환
-   ==> @Controller + @Response
-   ==> @RestController
+   ==> @Controller + @Response 형식
+   ==> @RestController 형식
 
 11. @RequestBody 역할
    ==>  클라이언트에서 요청한 JSON 식을  자바클래스로 변환
-   ==> @RestController
+   ==> @RestController 형식
    public String createCust(@RequestBody
        Customer customer )
 
@@ -214,7 +215,21 @@ public class HelloController {
    }
    JSON:
    {
-      "userid":"aaa",
+      "userid":"aaa", // Customer 클래스의 변수명과 동일
       "passwd":"1234"
 
    }
+
+12. (RESTful 서비스 방식중에서) 클라이언트에서 서버로 데이터 전달방법 2가지
+
+  가. http://localhost:8080/요청매핑/id/1234/pw/9876   ==> 도구 불필요
+     http://localhost:8080/요청매핑/id/8888/pw/7654
+
+     @PathVariable 로 값을 얻는다.
+
+     http://localhost:8080/xxx/id/1234/pw/9876
+     예>
+       @GetMapping("/xxx/id/{a}/pw/{b})
+       public String hello(@PathVariable  String a, @PathVariable String b)
+
+  나. http://localhost:8080/요청매핑/ + 넘겨줄 데이터를 JSON  ==> 도구 필요(Swagger API, Postman)
