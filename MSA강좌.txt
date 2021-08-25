@@ -149,13 +149,33 @@ public class HelloController {
 	     http://localhost:8080/searchUser
 	
 	     body: id=1234&pw=9876
+    ==> 응답 ( 화면이 있는 html,jsp 형태 )
 
+       
  나. RESTful 서비스 (*****)
      ==> 사용자가 입력한 데이터(파라미터)를 url에 포함해서 요청
-      http://localhost:8080/id/1234/pw/9876
+      http://localhost:8080/요청매핑/id/1234/pw/9876
+      http://localhost:8080/요청매핑/ + 넘겨줄 데이터를 JSON
       
     ==> method 사용하여 의도를 내포                   스프링의 Controller
       가. get :   select 의도  ================>  @GetMapping , @RequestMapping(value="/aa", method=RequestMethod.GET)
       나. post:   insert 의도  ================>  @PostMapping  , @RequestMapping(value="/aa", method=RequestMethod.POST) 
       다. put :   update 의도  ================>  @PutMapping  , @RequestMapping(value="/aa", method=RequestMethod.PUT)
       라. delete:  delete 의도  ================> @DeleteMapping  , @RequestMapping(value="/aa", method=RequestMethod.DELETE)
+
+   ==> 응답 ( JSON, XML 형태 )
+   ==> JSON응답받으려면 @RestController(@Controller+@ResponseBody)  
+
+         1)URL요청   @RestController
+   브라우저 --------> Controller
+         <-------
+	   JSON 응답
+
+   @ResponseBody 역할:  자바클래스를 JSON 형태로 변경해주는 역할 
+   @RequestBody  역할:  JSON를 자바클래스를 형태로 변경해주는 역할
+                      도구(Swagger API, 크롬브라우저의 Postman 확장팩, curl) 활용하여 JSON을 넘긴다.
+
+          1)json요청   @RestController
+   브라우저 -------->    Controller   2)@RequestBody 처리
+         <-------
+	  3) JSON 응답
