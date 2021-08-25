@@ -82,3 +82,37 @@ http://localhost:8081/컨텍스트명/서블릿맵핑/요청매핑/자원
   나. @RestController
       ==> 실행결과를 데이터(text, JSON, XML )로 반환시
       ==> @Controller + @ResponseBody 포함한 기능
+
+     *Controller 에서 반환값에 따라서 데이터가 달라진다.
+       a. public List<String> hello() 
+         ==> 화면에 JSON의 배열형식으로 반환
+	   예> ["홍길동","이순신",...]
+       b. public String  hello()
+       ==> 화면에 문자열 형식으로 반환
+
+       c. public User  hello()
+       ==> 화면에 JSON의 객체형식으로 반환
+
+           {
+		"name": "홍길동",
+		"age": 20
+	   }
+
+         d. public List<User>  hello()
+       ==> 화면에 JSON의 객체형식으로 반환
+	   [
+		{
+		"name": "홍길동1",
+		"age": 30
+		},
+		{
+		"name": "홍길동2",
+		"age": 20
+		}
+	 ]
+7. DI(Dependency Injection: 의존성 주입)
+  ==> 임의의 A에서 B 사용
+
+  가. 생성자 이용 주입
+
+  나. @Autowired 주입
