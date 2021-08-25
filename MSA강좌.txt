@@ -233,3 +233,81 @@ public class HelloController {
        public String hello(@PathVariable  String a, @PathVariable String b)
 
   나. http://localhost:8080/요청매핑/ + 넘겨줄 데이터를 JSON  ==> 도구 필요(Swagger API, Postman)
+ 
+
+13. 전체 아키텍쳐
+                                      @Transactional 
+                @RestController       @Service              @Repository
+브라우저 --------> Controler -----------> Service ------------> Repository -----> DB
+      <-------            <----------          <-----------            
+       JSON응답                          DTO(User)<------------> @Entity, @Id
+                                                              JPA영속성객체(엔티티)= emp테이블(pk)
+									       dept테이블
+									       ...
+    DTO ----> Entity
+    Entity --> DTO    변경 작업이 필요하다. ( ModelMapper, mapstruct 라이브러리 )
+
+
+//////////////////////////////////////////////////////////////////////
+JPA(Java Persistence API)
+
+1.JPA특징
+  - SQL 대신에 자바클래스의 메서드로 DB연동
+  - ORM(Object-Relational Mapping)
+
+2. 구현 아키텍쳐
+
+   자바클래스 +  영속성 객체(JPA 관리하는 클래스) +  DB
+  
+   - 영속성 객체
+   - 영속성 컨텍스트
+   - 영속성 객체의 라이프사이클
+
+3. 트랜잭션(tx) 범위안에서 JPA를 사용해야 한다.
+
+   가.  Spring 아닌 코드
+	EntityManager em = ...
+        em.begin();  //tx 시작
+         ..
+	 .. 
+ 
+        em.commit();  //tx 종료
+	
+   나.  Spring 코드
+
+      => Service 클래스에서
+        @Transactional 사용 ( 메서드레벨, 클래스레벨 )
+  
+    예>
+       public class MyService{
+
+	  @Transactional  //메서드레벨
+	  public void insert(){
+             //JPA 코드
+	  }
+	  @Transactional
+	  public void delete(){
+             //JPA 코드
+	  }
+
+	  public void update(){
+             
+	  }
+
+       }
+        @Transactional
+        public class MyService{
+
+	    //메서드레벨
+	  public void insert(){
+             //JPA 코드
+	  }
+	  public void delete(){
+             //JPA 코드
+	  }
+
+	  public void update(){
+             //JPA 코드
+	  }
+
+       }
