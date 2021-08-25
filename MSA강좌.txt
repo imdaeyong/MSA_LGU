@@ -58,7 +58,9 @@ localhost:  호스트 ip번호
    application.properties 에서
    server.port=8081
 
-컨텍스트명: 현재 지정안됨
+컨텍스트명: 현재 지정안됨.
+    server.servlet.context-path=/aaa
+
 서블릿맵핑: 스프링에서는 DispatchServlet 자동지원.  
         서블릿 맵핑값은 /로 자동지정되어있음.
 
