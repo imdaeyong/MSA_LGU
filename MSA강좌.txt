@@ -1,0 +1,34 @@
+강사명: 인경열
+공유: https://github.com/inky4832/
+
+
+1일차
+가. 환경설정
+
+  JDK ( 1.8 )
+  https://www.oracle.com/kr/java/technologies/javase/javase-jdk8-downloads.html
+
+  STS ( sts 3.9.14 , eclipse 4.15)
+  https://spring.io/tools
+
+  h2
+  https://www.h2database.com/html/main.html
+
+  스프링부트 프로젝트 생성
+  https://start.spring.io/
+
+# 리뷰 내용
+1. 빌드 툴(maven)
+   pom.xml 파일에 의존성 설정.
+
+   http://mvnrepository.com
+
+2. SpringBoot의 환경설정 파일
+
+   application.properties
+   application.yml
+
+   예> server.port=8081
+
+3.  내장 톰캣 사용
+   spring-boot-starter-web
