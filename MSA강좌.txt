@@ -235,7 +235,7 @@ public class HelloController {
   나. http://localhost:8080/요청매핑/ + 넘겨줄 데이터를 JSON  ==> 도구 필요(Swagger API, Postman)
  
 
-13. 전체 아키텍쳐
+13. 전체 아키텍쳐(********************)
                                       @Transactional 
                 @RestController       @Service              @Repository
 브라우저 --------> Controler -----------> Service ------------> Repository -----> DB
@@ -246,10 +246,45 @@ public class HelloController {
 									       ...
     DTO ----> Entity
     Entity --> DTO    변경 작업이 필요하다. ( ModelMapper, mapstruct 라이브러리 )
-
+//Entity ==> DTO
+	public OrderDTO toOrderDTO(OrderEntity order) {
+		if(order == null) {
+			return null;
+		}
+		
+		//Builder패턴
+		OrderDTO dto = OrderDTO.builder()
+						.name(order.getName())
+						.createDate(order.getCreateDate())
+						.orderId(order.getOrderId())
+						.productId(order.getProductId())
+						.quantity(order.getQuantity())
+						.totalPrice(order.getTotalPrice())
+						.unitPrice(order.getUnitPrice())
+						.userId(order.getUserId())
+						.build();
+		
+		return dto;
+		
+	}
+	
+	// List<Entity> ==> List<DTO>
+	public List<OrderDTO> toOrderDTOList(List<OrderEntity> orders){
+		if(orders == null) {
+			return null;
+		}
+		
+		List<OrderDTO> list = new ArrayList<OrderDTO>(orders.size());
+		for(OrderEntity order : orders) {
+			list.add(toOrderDTO(order));
+		}
+		return list;
+	}
 
 //////////////////////////////////////////////////////////////////////
 JPA(Java Persistence API)
+ ==> JPA는 스펙(인터페이스)이고
+     구현체는 하이버네이트(hibernate)이다.
 
 1.JPA특징
   - SQL 대신에 자바클래스의 메서드로 DB연동
@@ -311,3 +346,37 @@ JPA(Java Persistence API)
 	  }
 
        }
+
+4. JPA 에서  CRUD 작업
+  - SQL문이 아닌 메서드로 CRUD 작업
+    가. DML
+       - insert:   persist(엔티티)
+       - delete:   remove(엔티티)
+       - update:   엔티티.set메서드(값)
+
+    나. Query
+       - select:    find(엔티티, id값)
+
+
+  - JPA에서 제공하는 JPQL 사용하면 SQL 사용 가능. ( 현 과정에서는 사용불가 )
+
+ 
+5. DB 연동하기 위한 설정 정보 4가지
+  가. DB 벤더에서 제공하는 jar 파일( 드라이버 )
+  나. url 정보 ( DB설치 ip, port번호, 서비스명)
+  다. 사용자 id
+  라. 사용자 pw
+
+  ==> Spring에서는 application.properties 설정한다.
+
+///////////////////////////////////////////////////
+SpringMVC에서는 JPA 를 편하게 사용하기 위해서 SpringData API 지원
+
+가. 의존성 추가
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+	</dependency>
+
+나. JpaRepository<Customer, String> 인터페이스 제공
+  ==> 다양한 CRUD 메서드가 제공된다.
