@@ -179,3 +179,42 @@ public class HelloController {
    브라우저 -------->    Controller   2)@RequestBody 처리
          <-------
 	  3) JSON 응답
+
+
+9.  lombok 라이브러리
+   
+    ==> DTO,VO 클래스의 setter,getter메서드, 생성자 자동 생성
+
+    가. lombok.jar 실행
+       c:/> java -jar 경로/lombok.jar
+      
+    나. 창이 보이면 sts.ext 설정하고 install 한다.
+
+    다. sts 재시작하고 project/clean 한다.
+
+    라. @Data 같은 어노테이션 사용 가능.
+
+
+
+10. @Response 역할
+   ==> 서버에서 실행된 자바클래스를 JSON 변환하여 반환
+   ==> @Controller + @Response
+   ==> @RestController
+
+11. @RequestBody 역할
+   ==>  클라이언트에서 요청한 JSON 식을  자바클래스로 변환
+   ==> @RestController
+   public String createCust(@RequestBody
+       Customer customer )
+
+   public class Customer {
+	private String userid;
+	private String passwd;
+	//반드시 getter/setter, 기본 생성자 필수
+   }
+   JSON:
+   {
+      "userid":"aaa",
+      "passwd":"1234"
+
+   }
