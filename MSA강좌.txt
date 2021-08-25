@@ -54,7 +54,9 @@
 localhost:  호스트 ip번호
  8081   : 톰캣 port번호 ( 기본:8080)
    변경가능?
-   application.properties 에서
+   application.properties
+   (key=value  설정)
+   에서
    server.port=8081
 
 컨텍스트명: 현재 지정안됨.
@@ -79,7 +81,7 @@ http://localhost:8081/컨텍스트명/서블릿맵핑/요청매핑/자원
       ==> 필요시 실행결과를 데이터(text, JSON, XML )로 반환하려면
          추가로 @ResponseBody 어노테이션이 필요하다.
 
-  나. @RestController
+  나. @RestController (*****)
       ==> 실행결과를 데이터(text, JSON, XML )로 반환시
       ==> @Controller + @ResponseBody 포함한 기능
 
@@ -98,7 +100,7 @@ http://localhost:8081/컨텍스트명/서블릿맵핑/요청매핑/자원
 		"age": 20
 	   }
 
-         d. public List<User>  hello()
+       d. public List<User>  hello()
        ==> 화면에 JSON의 객체형식으로 반환
 	   [
 		{
@@ -109,10 +111,25 @@ http://localhost:8081/컨텍스트명/서블릿맵핑/요청매핑/자원
 		"name": "홍길동2",
 		"age": 20
 		}
-	 ]
+	    ]
 7. DI(Dependency Injection: 의존성 주입)
   ==> 임의의 A에서 B 사용
 
-  가. 생성자 이용 주입
+  가. 생성자 이용 주입 (*****, 자사에서 사용)
+    ==> HelloService 반드시 사용하는 의도 내포
+   @RestController
+public class HelloController {
+	private HelloService service;
+	// 생성자 이용하여 주입 받는다.
+	public HelloController(HelloService service) {
+		this.service = service;
+	}
+	
 
   나. @Autowired 주입
+==> HelloService 반드시 사용하는 의도가 덜함
+   @RestController
+public class HelloController {
+	
+	@Autowired(required=false)
+	private HelloService service;
