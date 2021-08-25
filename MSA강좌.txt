@@ -32,3 +32,37 @@
 
 3.  내장 톰캣 사용
    spring-boot-starter-web
+
+
+4. 추가되는 컴포넌트(빈)는 
+반드시 @SpringBootApplication 로 지정된
+  Application파일의 패키지의 서브패키지 형태로 
+  설정해야 된다.
+
+  ==> 추가되는 컴포넌트들이 생성된다.
+  ==> 마킹 어노테이션
+      @RestController
+      @Controller
+      @Service
+      @Repository
+      @Component
+      ..
+    
+5. 요청 URL
+  
+  http://localhost:8081/컨텍스트명/서블릿맵핑/hello
+ =>http://localhost:8081/hello
+localhost:  호스트 ip번호
+ 8081   : 톰캣 port번호 ( 기본:8080)
+   변경가능?
+   application.properties 에서
+   server.port=8081
+
+컨텍스트명: 현재 지정안됨
+서블릿맵핑: 스프링에서는 DispatchServlet 자동지원.  
+        서블릿 맵핑값은 /로 자동지정되어있음.
+
+hello : Controller클래스의 
+        @RequestMapping("/hello") 일치.
+	요청매핑값: /hello
+	
